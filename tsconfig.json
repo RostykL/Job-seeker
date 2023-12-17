@@ -1,5 +1,11 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "src/*": [
+        "./src/*"
+      ],
+    },
     "target": "es5",
     "lib": [
       "dom",
@@ -21,6 +27,8 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "src",
+    "src/types/telegram.d.ts",
+    "src/types/custom.d.ts"
   ]
 }

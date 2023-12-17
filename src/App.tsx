@@ -1,17 +1,15 @@
-import React, { useState } from "react";
-import "./App.css";
+import React, { useEffect } from "react";
+import { router } from "src/routes";
+import { RouterProvider } from "react-router-dom";
+
+const tg = Telegram.WebApp;
 
 function App() {
-  const [count, setCount] = useState(Math.floor(Math.random() * 100) % 100);
+  useEffect(() => {
+    tg.ready();
+  }, []);
 
-  return (
-    <div className="App">
-      <h1>Gayness measurement</h1>
-      <h4>{count} / 100</h4>
-      <button onClick={() => setCount((c) => c + 1)}>increase</button>
-      <button onClick={() => setCount(0)}>reset</button>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
