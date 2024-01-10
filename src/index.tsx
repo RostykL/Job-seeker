@@ -1,9 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { RouterProvider } from "react-router-dom";
-import { router } from "./routes";
 import App from "src/App";
+import ExpandPageProvider from "src/providers/ExpandPageProdiver";
+import moment from "moment";
+
+moment().locale("uk_UA");
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -11,6 +13,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App />
+    <ExpandPageProvider>
+      <App />
+    </ExpandPageProvider>
   </React.StrictMode>
 );

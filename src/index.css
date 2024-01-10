@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes user-role-change {
+    0% {
+        color: lightblue;
+    }
+    100% {
+        color: lightcoral;
+        font-size: 0.875rem; /* 14px */
+        line-height: 1.25rem;
+        align-self: flex-end;
+    }
+}
+
+.animate-user-role-change {
+    animation: user-role-change 1s linear;
+}
