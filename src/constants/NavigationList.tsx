@@ -1,7 +1,6 @@
 import { ROUTES } from "src/types/routes";
 
 // TODO: change rightSideText to another value or remove it since we will fetch this information from the backend
-
 export interface NavItem {
   id: number;
   rightSideText: () => React.ReactNode;

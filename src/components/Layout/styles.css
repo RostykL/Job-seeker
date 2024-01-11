@@ -1,0 +1,15 @@
+.page-is-expanded {
+    @apply transition-all translate-x-[0%] h-full duration-300
+}
+
+.page-is-not-expanded {
+    @apply transition-all translate-x-[80%] h-[80%] duration-300 rounded-2xl
+}
+
+.navigation-is-expanded {
+    @apply transition-all translate-x-[-100%] duration-100
+}
+
+.navigation-is-not-expanded {
+    @apply transition-all translate-x-[0] duration-300
+}

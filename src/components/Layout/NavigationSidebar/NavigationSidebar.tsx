@@ -12,12 +12,16 @@ import {
   isUserRoleFreelancer,
   UserRole,
 } from "src/shared/userRole";
+import { useExpandPageContext } from "src/providers/ExpandPageProdiver";
+import { useTelegram } from "src/shared/hooks/useTelegram";
 
 const NavigationSidebar = () => {
   const [userRole, setUserRole] = useState<UserRole>(UserRole.CLIENT);
 
   const navigate = useNavigate();
   const isNavigationSelected = useHighlightNavigation();
+  const { handleExpandPage } = useExpandPageContext();
+  const tg = useTelegram();
 
   const renderUserRoleNavigationList = () => {
     if (isUserRoleFreelancer(userRole)) {
@@ -32,6 +36,10 @@ const NavigationSidebar = () => {
               text={text}
               rightSideText={rightSideText}
               isActiveClass={isActive}
+              onDoubleClick={() => {
+                tg.expand();
+                handleExpandPage();
+              }}
             />
           );
         }
@@ -48,6 +56,10 @@ const NavigationSidebar = () => {
           text={text}
           rightSideText={rightSideText}
           isActiveClass={isActive}
+          onDoubleClick={() => {
+            tg.expand();
+            handleExpandPage();
+          }}
         />
       );
     });
