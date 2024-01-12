@@ -74,63 +74,63 @@ const CreateOrder = () => {
           />
         </div>
 
-        <MultiSelect
-          description="(!) Введіть 1 - 3 теги. Вони допоможуть краще
-              знайти виконавців для цього замовлення."
-          wrapperClassName="px-4 flex flex-col gap-1"
-        />
+        {/*<MultiSelect*/}
+        {/*  description="(!) Введіть 1 - 3 теги. Вони допоможуть краще*/}
+        {/*      знайти виконавців для цього замовлення."*/}
+        {/*  wrapperClassName="px-4 flex flex-col gap-1"*/}
+        {/*/>*/}
 
-        <div className="px-4 flex flex-col gap-4">
-          <h1 className="text-primaryBlack font-bold text-lg uppercase">
-            Тип Замовлення:
-          </h1>
-          <RadioSelect />
-        </div>
+        {/*<div className="px-4 flex flex-col gap-4">*/}
+        {/*  <h1 className="text-primaryBlack font-bold text-lg uppercase">*/}
+        {/*    Тип Замовлення:*/}
+        {/*  </h1>*/}
+        {/*  <RadioSelect />*/}
+        {/*</div>*/}
 
-        <div className="flex flex-col gap-4">
-          <h1 className="px-4 text-primaryBlack font-bold text-lg uppercase">
-            Додати файли:
-          </h1>
-          <div className="flex flex-col items-center gap-2 w-full">
-            <input {...getInputProps()} />
+        {/*<div className="flex flex-col gap-4">*/}
+        {/*  <h1 className="px-4 text-primaryBlack font-bold text-lg uppercase">*/}
+        {/*    Додати файли:*/}
+        {/*  </h1>*/}
+        {/*  <div className="flex flex-col items-center gap-2 w-full">*/}
+        {/*    <input {...getInputProps()} />*/}
 
-            {thumbs.length > 0 ? (
-              <aside className="flex gap-6 overflow-x-auto p-4 bg-blue-100 w-full max-w-full">
-                {thumbs}
-              </aside>
-            ) : null}
+        {/*    {thumbs.length > 0 ? (*/}
+        {/*      <aside className="flex gap-6 overflow-x-auto p-4 bg-blue-100 w-full max-w-full">*/}
+        {/*        {thumbs}*/}
+        {/*      </aside>*/}
+        {/*    ) : null}*/}
 
-            <button
-              type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                open();
-              }}
-              className="bg-primaryBlack text-white text-xs font-medium h-[35px] rounded-2xl w-full max-w-[calc(100%-2em)] uppercase"
-            >
-              Додати файли +
-            </button>
-          </div>
-        </div>
+        {/*    <button*/}
+        {/*      type="button"*/}
+        {/*      onClick={(e) => {*/}
+        {/*        e.preventDefault();*/}
+        {/*        open();*/}
+        {/*      }}*/}
+        {/*      className="bg-primaryBlack text-white text-xs font-medium h-[35px] rounded-2xl w-full max-w-[calc(100%-2em)] uppercase"*/}
+        {/*    >*/}
+        {/*      Додати файли +*/}
+        {/*    </button>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
 
-        <div className="flex flex-col gap-4">
-          <h1 className="px-4 text-primaryBlack font-bold text-lg uppercase">
-            Виберіть дату та час дедлайну:
-          </h1>
-          <LocalizationProvider adapterLocale="uk" dateAdapter={AdapterMoment}>
-            <div className="flex flex-col items-center justify-center">
-              <DateCalendar />
-              <TimePicker label="Виберіть час" />
-            </div>
-          </LocalizationProvider>
-        </div>
+        {/*<div className="flex flex-col gap-4">*/}
+        {/*  <h1 className="px-4 text-primaryBlack font-bold text-lg uppercase">*/}
+        {/*    Виберіть дату та час дедлайну:*/}
+        {/*  </h1>*/}
+        {/*  <LocalizationProvider adapterLocale="uk" dateAdapter={AdapterMoment}>*/}
+        {/*    <div className="flex flex-col items-center justify-center">*/}
+        {/*      <DateCalendar />*/}
+        {/*      <TimePicker label="Виберіть час" />*/}
+        {/*    </div>*/}
+        {/*  </LocalizationProvider>*/}
+        {/*</div>*/}
 
-        <button
-          type="button"
-          className="uppercase bg-black shadow-2xl rounded-2xl py-3 text-white font-medium tracking-wide"
-        >
-          Створити Замовлення
-        </button>
+        {/*<button*/}
+        {/*  type="button"*/}
+        {/*  className="uppercase bg-black shadow-2xl rounded-2xl py-3 text-white font-medium tracking-wide"*/}
+        {/*>*/}
+        {/*  Створити Замовлення*/}
+        {/*</button>*/}
       </form>
     </div>
   );

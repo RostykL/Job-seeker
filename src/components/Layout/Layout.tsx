@@ -31,7 +31,7 @@ const Layout = () => {
           onClick={handleExpandPage}
         >
           <div
-            className={`h-full w-full ${blockPageInteractionIfPageIsNotExpanded}`}
+            className={`h-full w-full bg-white ${blockPageInteractionIfPageIsNotExpanded}`}
           >
             <Outlet />
           </div>

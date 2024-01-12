@@ -7,5 +7,5 @@ export const useTelegram = () => {
     tg.expand();
   }, []);
 
-  return tg;
+  return { tg, queryId: tg.initDataUnsafe?.query_id };
 };

@@ -7,7 +7,7 @@
 }
 
 .navigation-is-expanded {
-    @apply transition-all translate-x-[-100%] duration-100
+    @apply transition-all translate-x-[-100%] duration-300
 }
 
 .navigation-is-not-expanded {

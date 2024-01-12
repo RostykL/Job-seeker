@@ -114,6 +114,7 @@ export declare namespace TelegramWebApps {
   }
 
   interface WebAppInitData {
+    chat: WebAppChat;
     /**
      * A unique identifier for the Web App session, required for sending messages via the answerWebAppQuery method.
      */
@@ -138,6 +139,10 @@ export declare namespace TelegramWebApps {
      * A hash of all passed parameters, which the bot server can use to check their validity.
      */
     hash?: string;
+  }
+
+  interface WebAppChat {
+    id: type;
   }
 
   interface WebAppUser {
