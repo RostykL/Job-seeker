@@ -12,6 +12,8 @@ import Support from "src/pages/Support";
 import Settings from "src/pages/Settings";
 import { ROUTES } from "src/types/routes";
 import Client from "src/pages/Client";
+import FreelancerNavigation from "src/components/FreelancerNavigation";
+import ClientNavigation from "src/components/ClientNavigation";
 
 export const router = createBrowserRouter([
   {

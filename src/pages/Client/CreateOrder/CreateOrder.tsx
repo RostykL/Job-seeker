@@ -69,7 +69,9 @@ const CreateOrder = () => {
           <Checkbox htmlFor="agreedOnPrice" label="Договірна" />
           <Input
             description="(!) Скільки ви готові заплатити за це замовлення?"
+            pattern="\d*"
             placeholder="Ціна"
+            type="number"
             wrapperClassName="flex flex-col gap-1"
           />
         </div>

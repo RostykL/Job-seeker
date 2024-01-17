@@ -3,12 +3,21 @@ export declare namespace TelegramWebApps {
     WebApp: WebApp;
   }
 
+  interface HapticFeedback {
+    impactOccurred: (
+      style: "light" | "medium" | "rigid" | "heavy" | "soft",
+    ) => void;
+    notificationOccurred: (type: "error" | "success" | "warning") => void;
+    selectionChanged: () => void;
+  }
+
   /**
    * Available app events.
    */
   type EventType = "themeChanged" | "viewportChanged" | "mainButtonClicked";
 
   interface WebApp {
+    HapticFeedback: HapticFeedback;
     /**
      * A string with raw data transferred to the Web App, convenient for validating data.
      * WARNING: Validate data from this field before using it on the bot's server.
@@ -20,6 +29,7 @@ export declare namespace TelegramWebApps {
      * You should only use data from initData on the bot's server and only after it has been validated.
      */
     initDataUnsafe: WebAppInitData;
+
     /**
      * The version of the Bot API available in the user's Telegram app.
      */
@@ -54,6 +64,8 @@ export declare namespace TelegramWebApps {
      * An object for controlling the main button, which is displayed at the bottom of the Web App in the Telegram interface.
      */
     MainButton: MainButton;
+
+    enableClosingConfirmation: () => void;
     /**
      * A method that sets the app event handler.
      */
@@ -114,7 +126,7 @@ export declare namespace TelegramWebApps {
   }
 
   interface WebAppInitData {
-    chat: WebAppChat;
+    chat?: WebAppChat;
     /**
      * A unique identifier for the Web App session, required for sending messages via the answerWebAppQuery method.
      */

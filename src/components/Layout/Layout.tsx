@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
-import NavigationSidebar from "src/components/Layout/NavigationSidebar";
 import { useExpandPageContext } from "src/providers/ExpandPageProdiver";
 import "./styles.css";
+import NavigationSidebar from "src/components/Layout/NavigationSidebar";
 
 const Layout = () => {
   const { isPageExpanded, handleExpandPage } = useExpandPageContext();
