@@ -3,6 +3,7 @@ import NavigationItem from "src/components/Layout/NavigationSidebar/NavigationIt
 import { useHighlightNavigation } from "src/shared/hooks/useHighlightNavigation";
 import { useExpandPageContext } from "src/providers/ExpandPageProdiver";
 import { useTelegram } from "src/shared/hooks/useTelegram";
+import { UserRole } from "src/shared/userRole";
 
 const ClientNavigation = () => {
   const isNavigationSelected = useHighlightNavigation();
@@ -11,23 +12,21 @@ const ClientNavigation = () => {
 
   return (
     <ul className="mt-8 flex flex-col">
-      {CLIENT_NAVIGATION_LIST.map(({ id, text, url, rightSideText }) => {
-        const isActive = isNavigationSelected(url) ? "bg-white" : "";
-        return (
-          <NavigationItem
-            key={id}
-            id={id}
-            url={url}
-            text={text}
-            rightSideText={rightSideText}
-            isActiveClass={isActive}
-            onDoubleClick={() => {
-              tg.expand();
-              handleExpandPage();
-            }}
-          />
-        );
-      })}
+      {CLIENT_NAVIGATION_LIST.map(({ id, text, url, rightSideText }) => (
+        <NavigationItem
+          key={id}
+          id={id}
+          isActive={isNavigationSelected(url)}
+          queryParams={`?role=${UserRole.CLIENT}`}
+          rightSideText={rightSideText}
+          text={text}
+          url={url}
+          onDoubleClick={() => {
+            tg.expand();
+            handleExpandPage();
+          }}
+        />
+      ))}
     </ul>
   );
 };

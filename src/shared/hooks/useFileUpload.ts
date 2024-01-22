@@ -15,10 +15,10 @@ export const useFileUpload = () => {
       const newFiles = acceptedFiles.map((file) =>
         Object.assign(file, {
           preview: URL.createObjectURL(file),
-        })
+        }),
       );
 
-      setFiles((p) => [...newFiles, ...p]);
+      setFiles(newFiles);
     },
   });
 

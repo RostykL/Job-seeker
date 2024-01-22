@@ -1,34 +1,30 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { ROUTES } from "src/types/routes";
-import {
-  isUserRoleClient,
-  isUserRoleFreelancer,
-  UserRole,
-} from "src/shared/userRole";
-import { useHighlightNavigation } from "src/shared/hooks/useHighlightNavigation";
+import { useSearchParams } from "react-router-dom";
 import FreelancerNavigation from "src/components/FreelancerNavigation";
 import ClientNavigation from "src/components/ClientNavigation";
+import { UserRole } from "src/shared/userRole";
+import { useEffect } from "react";
+import { useTelegram } from "src/shared/hooks/useTelegram";
 
 const NavigationSidebar = () => {
-  const [userRole, setUserRole] = useState<UserRole>(UserRole.CLIENT);
+  const { hapticFeedback } = useTelegram();
 
-  const navigate = useNavigate();
-  const isNavigationSelected = useHighlightNavigation();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const useRole = searchParams.get("role");
 
   const isClientSelected =
-    isNavigationSelected(ROUTES.CLIENT) && isUserRoleClient(userRole)
-      ? "text-primaryBlack bg-white rounded-tr-xl rounded-br-xl"
-      : "text-primaryGray";
+    useRole === UserRole.CLIENT
+      ? "text-white bg-black rounded-tr-xl rounded-br-xl"
+      : "text-black";
 
   const isFreelancerSelected =
-    isNavigationSelected(ROUTES.FREELANCER) || isUserRoleFreelancer(userRole)
-      ? "text-primaryBlack bg-white rounded-tl-xl rounded-bl-xl"
-      : "text-primaryGray";
+    useRole === UserRole.FREELANCER
+      ? "text-white bg-black rounded-tl-xl rounded-bl-xl"
+      : "text-black";
 
-  const onUserRoleChange = (userRole: UserRole) => {
-    setUserRole(userRole);
-  };
+  useEffect(() => {
+    searchParams.set("role", UserRole.CLIENT);
+    setSearchParams(searchParams);
+  }, []);
 
   return (
     <nav className="transition-all w-[270px]">
@@ -36,8 +32,8 @@ const NavigationSidebar = () => {
         <div
           className={`${isClientSelected} px-4 py-3 text-xs uppercase font-medium`}
           onClick={() => {
-            navigate(ROUTES.CLIENT);
-            onUserRoleChange(UserRole.CLIENT);
+            searchParams.set("role", UserRole.CLIENT);
+            setSearchParams(searchParams);
           }}
         >
           Замовник
@@ -45,14 +41,14 @@ const NavigationSidebar = () => {
         <div
           className={`${isFreelancerSelected} px-4 py-3 text-xs uppercase font-medium`}
           onClick={() => {
-            navigate(ROUTES.FREELANCER);
-            onUserRoleChange(UserRole.FREELANCER);
+            searchParams.set("role", UserRole.FREELANCER);
+            setSearchParams(searchParams);
           }}
         >
           Виконавець
         </div>
       </div>
-      {isUserRoleFreelancer(userRole) ? (
+      {useRole === UserRole.FREELANCER ? (
         <FreelancerNavigation />
       ) : (
         <ClientNavigation />

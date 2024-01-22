@@ -6,32 +6,33 @@ import NavigationSidebar from "src/components/Layout/NavigationSidebar";
 const Layout = () => {
   const { isPageExpanded, handleExpandPage } = useExpandPageContext();
 
+  // TODO: maybe remove blur
   const expandPage = isPageExpanded
-    ? "page-is-expanded"
-    : "page-is-not-expanded";
+    ? "page-is-expanded blur-[0px]"
+    : "page-is-not-expanded blur-[0px]";
 
   const expandNavigationSidebar = isPageExpanded
-    ? "navigation-is-expanded"
-    : "navigation-is-not-expanded";
+    ? "navigation-is-expanded blur-[10px]"
+    : "navigation-is-not-expanded blur-[0px]";
 
   const blockPageInteractionIfPageIsNotExpanded = isPageExpanded
     ? ""
     : "pointer-events-none";
 
   return (
-    <div className="h-[100vh] overflow-hidden relative">
+    <div className="bg-white h-[100vh] overflow-hidden relative">
       <div
-        className={`h-full bg-primaryBlack absolute top-0 left-0 pt-6 ${expandNavigationSidebar}`}
+        className={`h-full bg-white shadow-2xl shadow-gray-400 absolute top-0 left-0 pt-6 ${expandNavigationSidebar}`}
       >
         <NavigationSidebar />
       </div>
       <div className="h-full flex justify-end items-center">
         <div
-          className={`overflow-x-hidden w-full shadow-md ${expandPage}`}
+          className={`overflow-x-hidden w-full h-full shadow-2xl shadow-gray-400 ${expandPage}`}
           onClick={handleExpandPage}
         >
           <div
-            className={`h-full w-full bg-white ${blockPageInteractionIfPageIsNotExpanded}`}
+            className={`bg-white h-full w-full duration-[3s] ${blockPageInteractionIfPageIsNotExpanded}`}
           >
             <Outlet />
           </div>

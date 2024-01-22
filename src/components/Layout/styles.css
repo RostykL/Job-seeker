@@ -1,15 +1,20 @@
 .page-is-expanded {
-    @apply transition-all translate-x-[0%] h-full duration-300
+    @apply transition-all translate-x-[0%] h-full duration-[400ms]
 }
 
+/*
+    Note: 270px - width of the sidebar
+    10% - additional width
+*/
 .page-is-not-expanded {
-    @apply transition-all translate-x-[80%] h-[80%] duration-300 rounded-2xl
+    @apply transition-all translate-x-[calc(270px+10%)] h-[80%] duration-[400ms] rounded-2xl
 }
 
 .navigation-is-expanded {
-    @apply transition-all translate-x-[-100%] duration-300
+    @apply transition-all translate-x-[-150%] duration-[400ms]
 }
 
 .navigation-is-not-expanded {
-    @apply transition-all translate-x-[0] duration-300
+    @apply transition-all translate-x-[0] duration-[400ms]
 }
+

@@ -1,8 +1,6 @@
-// TODO: rewrite for multiple radio selects. Currently, only two available.
-
-const RadioSelect = () => {
+const SelectOrderType = () => {
   return (
-    <div className="flex gap-4 justify-center">
+    <div className="flex gap-4 py-6">
       <div>
         <input
           type="radio"
@@ -14,7 +12,7 @@ const RadioSelect = () => {
         />
         <label
           htmlFor="first"
-          className="bg-white shadow text-primaryGray px-4 py-2.5 rounded-xl peer-checked:bg-primaryBlack peer-checked:text-white"
+          className="bg-gray-100 shadow text-primaryGray px-4 py-3 rounded-md peer-checked:bg-primaryBlack peer-checked:text-white"
         >
           Звичайний
         </label>
@@ -29,7 +27,7 @@ const RadioSelect = () => {
         />
         <label
           htmlFor="second"
-          className="bg-white shadow text-primaryGray px-4 py-2.5 rounded-xl peer-checked:bg-primaryBlack peer-checked:text-white"
+          className="bg-gray-100 shadow text-primaryGray px-4 py-3 rounded-md peer-checked:bg-primaryBlack peer-checked:text-white"
         >
           Захищений
         </label>
@@ -38,4 +36,4 @@ const RadioSelect = () => {
   );
 };
 
-export default RadioSelect;
+export default SelectOrderType;

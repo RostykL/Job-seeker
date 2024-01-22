@@ -3,74 +3,74 @@ import NavigationItem from "src/components/Layout/NavigationSidebar/NavigationIt
 import { useHighlightNavigation } from "src/shared/hooks/useHighlightNavigation";
 import { useExpandPageContext } from "src/providers/ExpandPageProdiver";
 import { useTelegram } from "src/shared/hooks/useTelegram";
-import {
-  useGetUserInformationQuery,
-  useTriggerVerificationMutation,
-  useVerifyUserMutation,
-} from "src/store/features/user/user.api";
+import { useGetUserInformationQuery } from "src/store/features/user/user.api";
 import { ReactComponent as Spinner } from "src/assets/svg/spinner.svg";
-import { useState } from "react";
+import {
+  isUserVerificationPending,
+  isUserVerified,
+} from "src/shared/user/verification";
+import { useVerifyUser } from "src/shared/hooks/user/useVerifyUser";
+import { UserRole } from "src/shared/userRole";
 
 const FreelancerNavigation = () => {
   const isNavigationSelected = useHighlightNavigation();
+
   const { handleExpandPage } = useExpandPageContext();
-  const { tg, telegramUserId, queryId } = useTelegram();
+  const { tg, telegramUserId } = useTelegram();
+  const { handleVerifyUser, isLoading: isTriggeringVerificationLoading } =
+    useVerifyUser();
 
-  const [triggerVerification, { isLoading: isTriggeringVerificationLoading }] =
-    useTriggerVerificationMutation();
-  const { data, isLoading, isFetching } =
-    useGetUserInformationQuery(telegramUserId);
-
-  const handleVerifyUser = async () => {
-    tg.HapticFeedback.impactOccurred("soft");
-    if (!queryId) return;
-    try {
-      const choice = window.confirm(
-        "Ви покинене програму, для того, щоб верифікуватися, згодні?",
-      );
-      if (choice) {
-        await triggerVerification(queryId);
-      }
-    } catch (e) {
-      alert("Error occurred");
-    }
-  };
+  const {
+    data: user,
+    isLoading,
+    isFetching,
+  } = useGetUserInformationQuery(telegramUserId);
 
   if (isLoading || isFetching) {
     return (
-      <section className="mt-8 flex flex-col gap-4 bg-black opacity-25 mx-4 rounded-xl py-4">
-        <span className="opacity-20 py-4 px-4 pr-8 bg-gray-50 mx-4 rounded-full h-[10px] animate-pulse"></span>
-        <span className="opacity-20 py-4 px-4 pr-8 bg-gray-50 mx-4 rounded-full h-[10px] animate-pulse"></span>
-        <span className="opacity-20 py-4 px-4 pr-8 bg-gray-50 mx-4 rounded-2xl h-[100px] animate-pulse"></span>
-        <p className="text-gray-300 text-sm font-bold text-center px-4 blur-sm animate-pulse">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores,
-          voluptas!
+      <section className="mt-8 flex flex-col gap-4 bg-black bg-opacity-25 mx-4 rounded-xl py-4">
+        <span className="py-4 px-4 pr-8 bg-gray-400 mx-4 rounded-full h-[10px] animate-pulse"></span>
+        <span className="py-4 px-4 pr-8 bg-gray-400 mx-4 rounded-full h-[10px] animate-pulse"></span>
+        <span className="py-4 px-4 pr-8 bg-gray-400 mx-4 rounded-2xl h-[100px] animate-pulse"></span>
+        <p className="text-gray-400 text-sm font-bold text-center px-4 blur-[2px] animate-pulse">
+          Завантаження. Будь ласка, почекайте.
         </p>
       </section>
     );
   }
 
-  if (data && data?.data?.freelancerPreferences?.isVerified) {
+  if (isUserVerified(user)) {
     return (
       <ul className={`mt-8 flex flex-col`}>
-        {FREELANCER_NAVIGATION_LIST.map(({ id, text, url, rightSideText }) => {
-          const isActive = isNavigationSelected(url) ? "bg-white" : "";
-          return (
-            <NavigationItem
-              key={id}
-              id={id}
-              url={url}
-              text={text}
-              rightSideText={rightSideText}
-              isActiveClass={isActive}
-              onDoubleClick={() => {
-                tg.expand();
-                handleExpandPage();
-              }}
-            />
-          );
-        })}
+        {FREELANCER_NAVIGATION_LIST.map(({ id, text, url, rightSideText }) => (
+          <NavigationItem
+            key={id}
+            id={id}
+            isActive={isNavigationSelected(url)}
+            queryParams={`?role=${UserRole.FREELANCER}`}
+            rightSideText={rightSideText}
+            text={text}
+            url={url}
+            onDoubleClick={() => {
+              tg.expand();
+              handleExpandPage();
+            }}
+          />
+        ))}
       </ul>
+    );
+  }
+
+  if (isUserVerificationPending(user)) {
+    return (
+      <section className="mt-8 flex flex-col p-4 gap-2 bg-green-600 m-4 rounded-md shadow-md">
+        <h1 className="text-lg w-full text-white text-center font-bold">
+          Ви успішно завершили верифікацію.
+        </h1>
+        <p className="text-white opacity-75 text-center text-sm">
+          Тепер, будь ласка, зачекайте, доки адмін перевірить ваші дані!
+        </p>
+      </section>
     );
   }
 

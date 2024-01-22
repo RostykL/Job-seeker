@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { router } from "src/routes";
-import { RouterProvider } from "react-router-dom";
+import { RouterProvider, useSearchParams } from "react-router-dom";
 import { useTelegram } from "src/shared/hooks/useTelegram";
+import { UserRole } from "src/shared/userRole";
 
 function App() {
   const { tg } = useTelegram();
