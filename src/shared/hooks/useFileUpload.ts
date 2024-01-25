@@ -1,24 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 
 export interface FileProps extends File {
   preview: string;
 }
 
-export const useFileUpload = () => {
-  const [files, setFiles] = useState<FileProps[]>([]);
+export const useFileUpload = ({
+  files,
+  handleFilesChange,
+}: {
+  files: FileProps[];
+  handleFilesChange: (files: FileProps[]) => void;
+}) => {
   const { getInputProps, open } = useDropzone({
     accept: {
-      "image/jpeg": [],
+      "image/*": [],
     },
     onDrop: (acceptedFiles: File[]) => {
-      const newFiles = acceptedFiles.map((file) =>
+      const acceptedFilesWithoutDuplicates = acceptedFiles.filter(
+        (acceptedFile) =>
+          !files.some((file) => acceptedFile.name === file.name),
+      );
+
+      const newFiles = acceptedFilesWithoutDuplicates.map((file) =>
         Object.assign(file, {
           preview: URL.createObjectURL(file),
         }),
       );
 
-      setFiles(newFiles);
+      handleFilesChange([...files, ...newFiles]);
     },
   });
 
@@ -30,5 +40,5 @@ export const useFileUpload = () => {
     return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
   }, []);
 
-  return { revokeObjectURL, getInputProps, open, files };
+  return { revokeObjectURL, getInputProps, open };
 };

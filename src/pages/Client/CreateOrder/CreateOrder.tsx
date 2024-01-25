@@ -9,20 +9,50 @@ import Textarea from "src/components/Textarea";
 import { useTelegram } from "src/shared/hooks/useTelegram";
 import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { OrderType } from "src/UI/CreateOrderFields/SelectOrderType/SelectOrderType";
+import Checkbox from "src/components/Checkbox";
+import { FileProps } from "src/shared/hooks/useFileUpload";
+import { isOrderTypeDefault } from "src/shared/order/orderType";
+
+interface CreateOrderFormFields {
+  description: string;
+  price: number;
+  title: string;
+  type: OrderType;
+  files: FileProps[];
+}
 
 const validationSchema = Yup.object({
   description: Yup.string().required("Required"),
-  files: Yup.array().required("Required"),
-  price: Yup.number().required("Required"),
+  price: Yup.number()
+    .typeError("Amount must be a number")
+    .min(0, "Too little")
+    .required("Required"),
   title: Yup.string().required("Required"),
+  type: Yup.mixed<OrderType>().oneOf(Object.values(OrderType)).required(),
+  files: Yup.mixed<FileProps[]>().default([]),
 });
 
 const CreateOrder = () => {
-  const methods = useForm();
+  const methods = useForm<CreateOrderFormFields>({
+    resolver: yupResolver(validationSchema),
+    mode: "onTouched",
+    defaultValues: {
+      description: "",
+      price: 0,
+      title: "",
+      type: OrderType.DEFAULT,
+      files: [],
+    },
+  });
+
+  const type = methods.watch("type");
 
   const { hapticFeedback } = useTelegram();
-  const handleCreateOrderSubmit = (data) => {
-    console.log("here");
+  const handleCreateOrderSubmit = (data: CreateOrderFormFields) => {
+    console.log(data, "here");
+    hapticFeedback("heavy");
   };
 
   return (
@@ -35,13 +65,26 @@ const CreateOrder = () => {
           <UploadFilesFormField />
 
           <section className="w-full px-4">
+            <FormFieldSectionHeader leftText="Виберіть Тип Замовлення" />
+            <SelectOrderType />
+            {isOrderTypeDefault(type) ? (
+              <Checkbox
+                htmlFor="userAgreement"
+                label="Погоджуюся, що всю відповідальність за втрачені гроші беру на себе."
+              />
+            ) : null}
+          </section>
+
+          <section className="w-full px-4">
             <FormFieldSectionHeader
               leftText="Ціна"
               description="Скільки ви готові заплатити за цю роботу?"
             />
             <Input
-              {...methods.register("price")}
+              name="price"
               placeholder="$$$"
+              type="number"
+              pattern="\d*"
               wrapperClassName="flex flex-col gap-1 py-4"
             />
           </section>
@@ -52,7 +95,7 @@ const CreateOrder = () => {
               description="Опишіть коротко, що потрібно зробити"
             />
             <Input
-              {...methods.register("title")}
+              name="title"
               placeholder="Назва"
               wrapperClassName="flex flex-col gap-1 py-4"
             />
@@ -65,16 +108,11 @@ const CreateOrder = () => {
             />
             <Textarea
               cols={5}
-              {...methods.register("description")}
+              name="description"
               placeholder="Опис"
               rows={2}
               wrapperClassName="py-4 flex flex-col gap-1"
             />
-          </section>
-
-          <section className="w-full px-4">
-            <FormFieldSectionHeader leftText="Виберіть Тип Замовлення" />
-            <SelectOrderType />
           </section>
 
           <button
@@ -84,23 +122,6 @@ const CreateOrder = () => {
           >
             Створити замовлення
           </button>
-
-          {/*<div className="px-4 flex flex-col gap-2">*/}
-          {/*  <Checkbox htmlFor="agreedOnPrice" label="Договірна" />*/}
-          {/*  <Input*/}
-          {/*    description="(!) Скільки ви готові заплатити за це замовлення?"*/}
-          {/*    pattern="\d*"*/}
-          {/*    placeholder="Ціна"*/}
-          {/*    type="number"*/}
-          {/*    wrapperClassName="flex flex-col gap-1"*/}
-          {/*  />*/}
-          {/*</div>*/}
-
-          {/*<MultiSelect*/}
-          {/*  description="(!) Введіть 1 - 3 теги. Вони допоможуть краще*/}
-          {/*      знайти виконавців для цього замовлення."*/}
-          {/*  wrapperClassName="px-4 flex flex-col gap-1"*/}
-          {/*/>*/}
         </form>
       </FormProvider>
     </div>

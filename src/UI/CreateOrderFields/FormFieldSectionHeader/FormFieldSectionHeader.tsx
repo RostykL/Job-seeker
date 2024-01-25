@@ -11,7 +11,7 @@ const FormFieldSectionHeader = ({
   return (
     <div className="flex flex-col gap-2">
       <div className="w-full flex items-center gap-4 text-xs">
-        <h1 className="shrink-0	 uppercase text-gray-400 font-light tracking-wide">
+        <h1 className="shrink-0 uppercase text-gray-400 tracking-wide text-base">
           {leftText}
         </h1>
         <div className="w-full h-[1px] bg-gray-300" />

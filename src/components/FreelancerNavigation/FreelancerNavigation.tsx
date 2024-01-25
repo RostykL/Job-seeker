@@ -1,6 +1,5 @@
 import { FREELANCER_NAVIGATION_LIST } from "src/constants/NavigationList";
 import NavigationItem from "src/components/Layout/NavigationSidebar/NavigationItem";
-import { useHighlightNavigation } from "src/shared/hooks/useHighlightNavigation";
 import { useExpandPageContext } from "src/providers/ExpandPageProdiver";
 import { useTelegram } from "src/shared/hooks/useTelegram";
 import { useGetUserInformationQuery } from "src/store/features/user/user.api";
@@ -13,8 +12,6 @@ import { useVerifyUser } from "src/shared/hooks/user/useVerifyUser";
 import { UserRole } from "src/shared/userRole";
 
 const FreelancerNavigation = () => {
-  const isNavigationSelected = useHighlightNavigation();
-
   const { handleExpandPage } = useExpandPageContext();
   const { tg, telegramUserId } = useTelegram();
   const { handleVerifyUser, isLoading: isTriggeringVerificationLoading } =
@@ -46,7 +43,6 @@ const FreelancerNavigation = () => {
           <NavigationItem
             key={id}
             id={id}
-            isActive={isNavigationSelected(url)}
             queryParams={`?role=${UserRole.FREELANCER}`}
             rightSideText={rightSideText}
             text={text}

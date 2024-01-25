@@ -1,17 +1,26 @@
+import { useFormContext } from "react-hook-form";
+
+export enum OrderType {
+  DEFAULT = "DEFAULT",
+  SECURE = "SECURE",
+}
+
 const SelectOrderType = () => {
+  const { register } = useFormContext();
+
   return (
     <div className="flex gap-4 py-6">
       <div>
         <input
+          {...register("type")}
           type="radio"
-          value="value1"
-          name="group1"
-          id="first"
+          value={OrderType.DEFAULT}
+          id={OrderType.DEFAULT}
           defaultChecked
           className="hidden peer"
         />
         <label
-          htmlFor="first"
+          htmlFor={OrderType.DEFAULT}
           className="bg-gray-100 shadow text-primaryGray px-4 py-3 rounded-md peer-checked:bg-primaryBlack peer-checked:text-white"
         >
           Звичайний
@@ -19,14 +28,14 @@ const SelectOrderType = () => {
       </div>
       <div>
         <input
+          {...register("type")}
           type="radio"
-          value="value2"
-          name="group1"
-          id="second"
+          value={OrderType.SECURE}
+          id={OrderType.SECURE}
           className="hidden peer"
         />
         <label
-          htmlFor="second"
+          htmlFor={OrderType.SECURE}
           className="bg-gray-100 shadow text-primaryGray px-4 py-3 rounded-md peer-checked:bg-primaryBlack peer-checked:text-white"
         >
           Захищений

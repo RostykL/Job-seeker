@@ -34,6 +34,7 @@ const NavigationSidebar = () => {
           onClick={() => {
             searchParams.set("role", UserRole.CLIENT);
             setSearchParams(searchParams);
+            hapticFeedback("soft");
           }}
         >
           Замовник
@@ -43,6 +44,7 @@ const NavigationSidebar = () => {
           onClick={() => {
             searchParams.set("role", UserRole.FREELANCER);
             setSearchParams(searchParams);
+            hapticFeedback("soft");
           }}
         >
           Виконавець

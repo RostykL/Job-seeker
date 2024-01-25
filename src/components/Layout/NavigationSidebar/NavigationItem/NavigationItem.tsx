@@ -1,15 +1,13 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { NavItem } from "src/constants/NavigationList";
 import { useTelegram } from "src/shared/hooks/useTelegram";
 
 interface NavigationItemProps extends NavItem {
-  isActive: boolean;
   queryParams?: string;
   onDoubleClick: () => void;
 }
 
 const NavigationItem = ({
-  isActive,
   queryParams = "",
   rightSideText,
   text,
@@ -18,23 +16,22 @@ const NavigationItem = ({
 }: NavigationItemProps) => {
   const { hapticFeedback } = useTelegram();
 
-  const isActiveClass = isActive
-    ? "bg-black text-white font-bold"
-    : "text-primaryGray";
-
   return (
-    <Link
+    <NavLink
       to={{ pathname: url, search: queryParams }}
       onClick={() => hapticFeedback("light")}
       onDoubleClick={onDoubleClick}
+      className={({ isActive, isTransitioning }) =>
+        isActive || isTransitioning
+          ? "bg-black text-white font-bold"
+          : "text-primaryGray"
+      }
     >
-      <li
-        className={`${isActiveClass} py-4 px-4 pr-8 capitalize tracking-wide text-sm flex items-center justify-between`}
-      >
+      <li className="select-none py-4 px-4 pr-8 capitalize tracking-wide text-sm flex items-center justify-between">
         <div>{text}</div>
         {rightSideText()}
       </li>
-    </Link>
+    </NavLink>
   );
 };
 
