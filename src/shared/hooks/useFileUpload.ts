@@ -28,7 +28,7 @@ export const useFileUpload = ({
         }),
       );
 
-      handleFilesChange([...files, ...newFiles]);
+      handleFilesChange([...files, ...newFiles].slice(0, 6));
     },
   });
 
