@@ -16,6 +16,7 @@ import CreateOrderField from "src/pages/Client/CreateOrder/components/CreateOrde
 import CreateOrderSectionWrapper from "src/pages/Client/CreateOrder/components/CreateOrderSectionWrapper";
 import FormFieldSectionHeader from "src/pages/Client/CreateOrder/components/FormFieldSectionHeader";
 import CreateOrderTextArea from "src/pages/Client/CreateOrder/components/CreateOrderTextArea";
+import { logDOM } from "@testing-library/react";
 
 interface CreateOrderFormFields {
   description: string;
@@ -23,6 +24,7 @@ interface CreateOrderFormFields {
   title: string;
   type: OrderType;
   files: FileProps[];
+  userAgreement?: boolean;
 }
 
 const validationSchema = Yup.object({
@@ -34,28 +36,38 @@ const validationSchema = Yup.object({
   title: Yup.string().required("Required"),
   type: Yup.mixed<OrderType>().oneOf(Object.values(OrderType)).required(),
   files: Yup.mixed<FileProps[]>().default([]),
+  userAgreement: Yup.boolean().when("type", (type: unknown) => {
+    if (isOrderTypeDefault(type as OrderType)) {
+      return Yup.boolean().required();
+    }
+    return Yup.boolean();
+  }),
 });
 
 const CreateOrder = () => {
   const methods = useForm<CreateOrderFormFields>({
     resolver: yupResolver(validationSchema),
-    mode: "onTouched",
+    mode: "onSubmit",
     defaultValues: {
       description: "",
       price: 0,
       title: "",
       type: OrderType.DEFAULT,
       files: [],
+      userAgreement: true,
     },
   });
 
   const type = methods.watch("type");
+  const userAgreement = methods.watch("userAgreement");
 
   const { hapticFeedback } = useTelegram();
   const handleCreateOrderSubmit = (data: CreateOrderFormFields) => {
     console.log(data, "here");
     hapticFeedback("heavy");
   };
+
+  // TODO: rewrite userAgreement checkbox
 
   return (
     <div className="relative h-full pb-4">
@@ -72,6 +84,8 @@ const CreateOrder = () => {
             {isOrderTypeDefault(type) ? (
               <Checkbox
                 htmlFor="userAgreement"
+                {...methods.register("userAgreement")}
+                defaultChecked={userAgreement}
                 label="Погоджуюся, що всю відповідальність за втрачені гроші беру на себе."
               />
             ) : null}
@@ -79,7 +93,7 @@ const CreateOrder = () => {
 
           <CreateOrderSectionWrapper>
             <FormFieldSectionHeader
-              leftText="Ціна"
+              leftText="Ціна(грн)"
               description="Скільки ви готові заплатити за цю роботу?"
             />
             <CreateOrderField

@@ -1,4 +1,4 @@
-import { useFormContext } from "react-hook-form";
+import { RegisterOptions, useFormContext } from "react-hook-form";
 
 export enum OrderType {
   DEFAULT = "DEFAULT",
@@ -6,13 +6,28 @@ export enum OrderType {
 }
 
 const SelectOrderType = () => {
-  const { register } = useFormContext();
+  const { register, setValue } = useFormContext();
+
+  const handleOrderTypeRegisterWithUserAgreement = (
+    isUserAgreementForSelectedOrderType: boolean,
+    options?: RegisterOptions,
+  ) => {
+    const { onChange } = register("type");
+
+    return {
+      ...register("type", options),
+      onChange: async (event: { target: any; type?: any }) => {
+        await onChange(event);
+        setValue("userAgreement", isUserAgreementForSelectedOrderType);
+      },
+    };
+  };
 
   return (
     <div className="flex gap-4 py-6">
       <div>
         <input
-          {...register("type")}
+          {...handleOrderTypeRegisterWithUserAgreement(true)}
           type="radio"
           value={OrderType.DEFAULT}
           id={OrderType.DEFAULT}
@@ -28,7 +43,7 @@ const SelectOrderType = () => {
       </div>
       <div>
         <input
-          {...register("type")}
+          {...handleOrderTypeRegisterWithUserAgreement(false)}
           type="radio"
           value={OrderType.SECURE}
           id={OrderType.SECURE}
