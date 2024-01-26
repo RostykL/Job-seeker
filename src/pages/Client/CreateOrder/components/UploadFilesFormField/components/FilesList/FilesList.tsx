@@ -1,5 +1,5 @@
 import { useTelegram } from "src/shared/hooks/useTelegram";
-import FilePreviews from "src/UI/CreateOrderFields/UploadFilesFormField/components/FilePreviews";
+import FilePreviews from "src/pages/Client/CreateOrder/components/UploadFilesFormField/components/FilePreviews";
 import { FileProps, useFileUpload } from "src/shared/hooks/useFileUpload";
 
 export interface FilesListProps {

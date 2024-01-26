@@ -1,4 +1,4 @@
-import { OrderType } from "src/UI/CreateOrderFields/SelectOrderType/SelectOrderType";
+import { OrderType } from "src/pages/Client/CreateOrder/components/SelectOrderType";
 
 export const isOrderTypeDefault = (type: OrderType) =>
   type === OrderType.DEFAULT;

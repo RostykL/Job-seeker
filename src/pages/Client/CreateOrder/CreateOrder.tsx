@@ -1,19 +1,21 @@
 import "moment/locale/uk";
 import "./styles.css";
-import UploadFilesFormField from "src/UI/CreateOrderFields/UploadFilesFormField";
+import UploadFilesFormField from "src/pages/Client/CreateOrder/components/UploadFilesFormField";
 import React from "react";
-import Input from "src/components/Input";
-import FormFieldSectionHeader from "src/UI/CreateOrderFields/FormFieldSectionHeader";
-import SelectOrderType from "src/UI/CreateOrderFields/SelectOrderType";
-import Textarea from "src/components/Textarea";
 import { useTelegram } from "src/shared/hooks/useTelegram";
 import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { OrderType } from "src/UI/CreateOrderFields/SelectOrderType/SelectOrderType";
+import SelectOrderType, {
+  OrderType,
+} from "src/pages/Client/CreateOrder/components/SelectOrderType";
 import Checkbox from "src/components/Checkbox";
 import { FileProps } from "src/shared/hooks/useFileUpload";
 import { isOrderTypeDefault } from "src/shared/order/orderType";
+import CreateOrderField from "src/pages/Client/CreateOrder/components/CreateOrderField";
+import CreateOrderSectionWrapper from "src/pages/Client/CreateOrder/components/CreateOrderSectionWrapper";
+import FormFieldSectionHeader from "src/pages/Client/CreateOrder/components/FormFieldSectionHeader";
+import CreateOrderTextArea from "src/pages/Client/CreateOrder/components/CreateOrderTextArea";
 
 interface CreateOrderFormFields {
   description: string;
@@ -64,7 +66,7 @@ const CreateOrder = () => {
         >
           <UploadFilesFormField />
 
-          <section className="w-full px-4">
+          <CreateOrderSectionWrapper>
             <FormFieldSectionHeader leftText="Виберіть Тип Замовлення" />
             <SelectOrderType />
             {isOrderTypeDefault(type) ? (
@@ -73,47 +75,47 @@ const CreateOrder = () => {
                 label="Погоджуюся, що всю відповідальність за втрачені гроші беру на себе."
               />
             ) : null}
-          </section>
+          </CreateOrderSectionWrapper>
 
-          <section className="w-full px-4">
+          <CreateOrderSectionWrapper>
             <FormFieldSectionHeader
               leftText="Ціна"
               description="Скільки ви готові заплатити за цю роботу?"
             />
-            <Input
+            <CreateOrderField
               name="price"
               placeholder="$$$"
               type="number"
               pattern="\d*"
               wrapperClassName="flex flex-col gap-1 py-4"
             />
-          </section>
+          </CreateOrderSectionWrapper>
 
-          <section className="w-full px-4">
+          <CreateOrderSectionWrapper>
             <FormFieldSectionHeader
               leftText="Назва Роботи"
               description="Опишіть коротко, що потрібно зробити"
             />
-            <Input
+            <CreateOrderField
               name="title"
               placeholder="Назва"
               wrapperClassName="flex flex-col gap-1 py-4"
             />
-          </section>
+          </CreateOrderSectionWrapper>
 
-          <section className="w-full px-4">
+          <CreateOrderSectionWrapper>
             <FormFieldSectionHeader
               leftText="Детальний опис"
               description="Опишіть, що вам потрібно зробити?"
             />
-            <Textarea
+            <CreateOrderTextArea
               cols={5}
               name="description"
               placeholder="Опис"
               rows={2}
               wrapperClassName="py-4 flex flex-col gap-1"
             />
-          </section>
+          </CreateOrderSectionWrapper>
 
           <button
             type="submit"

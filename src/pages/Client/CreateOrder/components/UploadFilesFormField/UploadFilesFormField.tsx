@@ -1,4 +1,4 @@
-import FilesList from "src/UI/CreateOrderFields/UploadFilesFormField/components/FilesList";
+import FilesList from "src/pages/Client/CreateOrder/components/UploadFilesFormField/components/FilesList";
 import FormFieldSectionHeader from "src/UI/CreateOrderFields/FormFieldSectionHeader";
 import { useFormContext } from "react-hook-form";
 import { FileProps } from "src/shared/hooks/useFileUpload";
