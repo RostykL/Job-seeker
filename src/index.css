@@ -6,6 +6,11 @@
     html {
         -webkit-tap-highlight-color: transparent;
     }
+
+    #root {
+        height: var(--tg-viewport-height);
+        overflow: hidden;
+    }
 }
 
 @keyframes user-role-change {

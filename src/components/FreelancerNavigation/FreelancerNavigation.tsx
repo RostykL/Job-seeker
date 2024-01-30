@@ -39,20 +39,23 @@ const FreelancerNavigation = () => {
   if (isUserVerified(user)) {
     return (
       <ul className={`mt-8 flex flex-col`}>
-        {FREELANCER_NAVIGATION_LIST.map(({ id, text, url, rightSideText }) => (
-          <NavigationItem
-            key={id}
-            id={id}
-            queryParams={`?role=${UserRole.FREELANCER}`}
-            rightSideText={rightSideText}
-            text={text}
-            url={url}
-            onDoubleClick={() => {
-              tg.expand();
-              handleExpandPage();
-            }}
-          />
-        ))}
+        {FREELANCER_NAVIGATION_LIST.map(
+          ({ id, text, url, rightSideText, leftIcon }) => (
+            <NavigationItem
+              key={id}
+              id={id}
+              leftIcon={leftIcon}
+              queryParams={`?role=${UserRole.FREELANCER}`}
+              rightSideText={rightSideText}
+              text={text}
+              url={url}
+              onDoubleClick={() => {
+                tg.expand();
+                handleExpandPage();
+              }}
+            />
+          ),
+        )}
       </ul>
     );
   }

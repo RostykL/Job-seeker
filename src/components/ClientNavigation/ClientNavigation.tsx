@@ -10,20 +10,23 @@ const ClientNavigation = () => {
 
   return (
     <ul className="mt-8 flex flex-col">
-      {CLIENT_NAVIGATION_LIST.map(({ id, text, url, rightSideText }) => (
-        <NavigationItem
-          key={id}
-          id={id}
-          queryParams={`?role=${UserRole.CLIENT}`}
-          rightSideText={rightSideText}
-          text={text}
-          url={url}
-          onDoubleClick={() => {
-            tg.expand();
-            handleExpandPage();
-          }}
-        />
-      ))}
+      {CLIENT_NAVIGATION_LIST.map(
+        ({ id, text, url, rightSideText, leftIcon }) => (
+          <NavigationItem
+            key={id}
+            id={id}
+            leftIcon={leftIcon}
+            queryParams={`?role=${UserRole.CLIENT}`}
+            rightSideText={rightSideText}
+            text={text}
+            url={url}
+            onDoubleClick={() => {
+              tg.expand();
+              handleExpandPage();
+            }}
+          />
+        ),
+      )}
     </ul>
   );
 };

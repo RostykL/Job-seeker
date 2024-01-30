@@ -12,9 +12,15 @@ const NavigationItem = ({
   rightSideText,
   text,
   url,
+  leftIcon,
   onDoubleClick,
 }: NavigationItemProps) => {
   const { hapticFeedback } = useTelegram();
+
+  const isLinkActive = (isActive: boolean) =>
+    isActive
+      ? "bg-gray-100 duration-[0.3s] text-black font-medium"
+      : "text-primaryGray bg-none";
 
   return (
     <NavLink
@@ -22,13 +28,14 @@ const NavigationItem = ({
       onClick={() => hapticFeedback("light")}
       onDoubleClick={onDoubleClick}
       className={({ isActive, isTransitioning }) =>
-        isActive || isTransitioning
-          ? "bg-black text-white font-bold"
-          : "text-primaryGray"
+        `${isLinkActive(isActive || isTransitioning)} rounded-xl mx-3`
       }
     >
-      <li className="select-none py-4 px-4 pr-8 capitalize tracking-wide text-sm flex items-center justify-between">
-        <div>{text}</div>
+      <li className="select-none py-3 px-4 capitalize tracking-wide text-sm flex items-center justify-between">
+        <div className="flex items-center">
+          <div className="w-4 mr-4">{leftIcon}</div>
+          <div>{text}</div>
+        </div>
         {rightSideText()}
       </li>
     </NavLink>

@@ -15,77 +15,77 @@ import Client from "src/pages/Client";
 import FreelancerNavigation from "src/components/FreelancerNavigation";
 import ClientNavigation from "src/components/ClientNavigation";
 
-export const router = createBrowserRouter([
-  {
-    path: "/config",
-    element: <Layout />,
-    children: [
-      {
-        index: false,
-        path: ROUTES.SUPPORT,
-        element: <Support />,
-      },
-      {
-        index: false,
-        path: ROUTES.SETTINGS,
-        element: <Settings />,
-      },
-    ],
-  },
-  {
-    path: ROUTES.FREELANCER,
-    element: <Layout />,
-    children: [
-      {
-        index: false,
-        path: ROUTES.FREELANCER,
-        element: <Freelancer />,
-        children: [
-          {
-            index: false,
-            path: ROUTES.FREELANCER_JOBS,
-            element: <Jobs />,
-          },
-          {
-            index: false,
-            path: ROUTES.FREELANCER_JOB_SEARCH,
-            element: <JobsSearch />,
-          },
-          {
-            index: false,
-            path: ROUTES.FREELANCER_WITHDRAW_FUNDS,
-            element: <WithdrawFunds />,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    path: ROUTES.CLIENT,
-    element: <Layout />,
-    children: [
-      {
-        index: false,
-        path: ROUTES.CLIENT,
-        element: <Client />,
-        children: [
-          {
-            index: false,
-            path: ROUTES.CLIENT_DEALS,
-            element: <Deals />,
-          },
-          {
-            index: false,
-            path: ROUTES.CLIENT_CREATE_ORDER,
-            element: <CreateOrder />,
-          },
-          {
-            index: false,
-            path: ROUTES.CLIENT_SEARCH_CANDIDATES,
-            element: <SearchCandidates />,
-          },
-        ],
-      },
-    ],
-  },
-]);
+// export const router = createBrowserRouter([
+//   {
+//     path: "/config",
+//     element: <Layout />,
+//     children: [
+//       {
+//         index: false,
+//         path: ROUTES.SUPPORT,
+//         element: <Support />,
+//       },
+//       {
+//         index: false,
+//         path: ROUTES.SETTINGS,
+//         element: <Settings />,
+//       },
+//     ],
+//   },
+//   {
+//     path: ROUTES.FREELANCER,
+//     element: <Layout />,
+//     children: [
+//       {
+//         index: false,
+//         path: ROUTES.FREELANCER,
+//         element: <Freelancer />,
+//         children: [
+//           {
+//             index: true,
+//             path: ROUTES.FREELANCER_JOBS,
+//             element: <Jobs />,
+//           },
+//           {
+//             index: false,
+//             path: ROUTES.FREELANCER_JOB_SEARCH,
+//             element: <JobsSearch />,
+//           },
+//           {
+//             index: false,
+//             path: ROUTES.FREELANCER_WITHDRAW_FUNDS,
+//             element: <WithdrawFunds />,
+//           },
+//         ],
+//       },
+//     ],
+//   },
+//   {
+//     path: ROUTES.CLIENT,
+//     element: <Layout />,
+//     children: [
+//       {
+//         index: false,
+//         path: ROUTES.CLIENT,
+//         element: <Client />,
+//         children: [
+//           {
+//             index: true,
+//             path: ROUTES.CLIENT_DEALS,
+//             element: <Deals />,
+//           },
+//           {
+//             index: false,
+//             path: ROUTES.CLIENT_CREATE_ORDER,
+//             element: <CreateOrder />,
+//           },
+//           {
+//             index: false,
+//             path: ROUTES.CLIENT_SEARCH_CANDIDATES,
+//             element: <SearchCandidates />,
+//           },
+//         ],
+//       },
+//     ],
+//   },
+// ]);

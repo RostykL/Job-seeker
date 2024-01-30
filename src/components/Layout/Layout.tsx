@@ -20,7 +20,7 @@ const Layout = () => {
     : "pointer-events-none";
 
   return (
-    <div className="bg-white h-[100vh] overflow-hidden relative">
+    <div className="bg-white h-full overflow-hidden relative">
       <div
         className={`h-full bg-white shadow-2xl shadow-gray-400 absolute top-0 left-0 pt-6 ${expandNavigationSidebar}`}
       >

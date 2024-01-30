@@ -1,3 +1,7 @@
+import { ReactComponent as MyDealsIcon } from "src/assets/svg/fill-document.svg";
+import { ReactComponent as SettingsIcon } from "src/assets/svg/settings.svg";
+import { ReactComponent as InvoiceIcon } from "src/assets/svg/invoice.svg";
+
 import { ROUTES } from "src/types/routes";
 
 // TODO: change rightSideText to another value or remove it since we will fetch this information from the backend
@@ -6,6 +10,7 @@ export interface NavItem {
   rightSideText: () => React.ReactNode;
   text: string;
   url: ROUTES;
+  leftIcon?: React.ReactNode | null;
 }
 
 export const COMMON_NAVIGATION_LIST: NavItem[] = [
@@ -20,6 +25,7 @@ export const COMMON_NAVIGATION_LIST: NavItem[] = [
     rightSideText: () => null,
     text: "Настройки",
     url: ROUTES.SETTINGS,
+    leftIcon: <SettingsIcon />,
   },
 ];
 
@@ -29,12 +35,14 @@ export const CLIENT_NAVIGATION_LIST: NavItem[] = [
     rightSideText: () => 2,
     text: "Мої Угоди",
     url: ROUTES.CLIENT_DEALS,
+    leftIcon: <MyDealsIcon />,
   },
   {
     id: 1,
     rightSideText: () => null,
     text: "Створити замовлення",
     url: ROUTES.CLIENT_CREATE_ORDER,
+    leftIcon: <InvoiceIcon />,
   },
   {
     id: 2,

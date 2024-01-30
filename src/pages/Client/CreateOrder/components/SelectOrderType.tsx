@@ -8,6 +8,7 @@ export enum OrderType {
 const SelectOrderType = () => {
   const { register, setValue } = useFormContext();
 
+  // TODO: maybe rewrite this because it adds layer of complexity to the code base
   const handleOrderTypeRegisterWithUserAgreement = (
     isUserAgreementForSelectedOrderType: boolean,
     options?: RegisterOptions,
